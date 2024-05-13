@@ -10,7 +10,7 @@ from creds import get_bot_token  # модуль для получения bot_to
 bot = telebot.TeleBot(get_bot_token())
 
 
-# настраиваем запись логов в файл
+
 logging.basicConfig(filename=LOGS, level=logging.ERROR, format="%(asctime)s FILE: %(filename)s IN: %(funcName)s MESSAGE: %(message)s", filemode="w")
 bot = telebot.TeleBot(TOKEN)  # создаём объект бота
 

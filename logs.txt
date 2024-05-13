@@ -1,2 +1,0 @@
-2024-05-13 23:41:20,864 FILE: __init__.py IN: infinity_polling MESSAGE: Infinity polling: polling exited
-2024-05-13 23:41:20,866 FILE: __init__.py IN: infinity_polling MESSAGE: Break infinity polling

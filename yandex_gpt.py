@@ -2,9 +2,8 @@ import requests
 import logging  # модуль для сбора логов
 # подтягиваем константы из config файла
 from config import LOGS, MAX_GPT_TOKENS, SYSTEM_PROMPT, IAM_TOKEN, FOLDER_ID
-#from creds import get_creds  # модуль для получения токенов
-
-#iam_token, folder_id = get_creds()  # получаем iam_token и folder_id из файлов
+from creds import get_creds  # модуль для получения токенов
+iam_token, folder_id = get_creds()  # получаем iam_token и folder_id из файлов
 
 # настраиваем запись логов в файл
 logging.basicConfig(filename=LOGS, level=logging.ERROR, format="%(asctime)s FILE: %(filename)s IN: %(funcName)s MESSAGE: %(message)s", filemode="w")
@@ -13,11 +12,11 @@ logging.basicConfig(filename=LOGS, level=logging.ERROR, format="%(asctime)s FILE
 def count_gpt_tokens(messages):
     url = "https://llm.api.cloud.yandex.net/foundationModels/v1/tokenizeCompletion"
     headers = {
-        'Authorization': f'Bearer {IAM_TOKEN}',
+        'Authorization': f'Bearer {iam_token}',
         'Content-Type': 'application/json'
     }
     data = {
-        'modelUri': f"gpt://{FOLDER_ID}/yandexgpt-lite",
+        'modelUri': f"gpt://{folder_id}/yandexgpt-lite",
         "messages": messages
     }
     try:
@@ -30,11 +29,11 @@ def count_gpt_tokens(messages):
 def ask_gpt(messages):
     url = "https://llm.api.cloud.yandex.net/foundationModels/v1/completion"
     headers = {
-        'Authorization': f'Bearer {IAM_TOKEN}',
+        'Authorization': f'Bearer {iam_token}',
         'Content-Type': 'application/json'
     }
     data = {
-        'modelUri': f"gpt://{FOLDER_ID}/yandexgpt-lite",
+        'modelUri': f"gpt://{folder_id}/yandexgpt-lite",
         "completionOptions": {
             "stream": False,
             "temperature": 0.7,

@@ -1,17 +1,17 @@
 from config import FOLDER_ID, IAM_TOKEN
 import requests
-#from creds import get_creds  # модуль для получения токенов
-#iam_token, folder_id = get_creds()  # получаем iam_token и folder_id из файлов
+from creds import get_creds  # модуль для получения токенов
+iam_token, folder_id = get_creds()  # получаем iam_token и folder_id из файлов
 def speech_to_text(data):
     # указываем параметры запроса
     params = "&".join([
         "topic=general",
-        f"folderId={FOLDER_ID}",
+        f"folderId={folder_id}",
         "lang=ru-RU"
     ])
     url = f"https://stt.api.cloud.yandex.net/speech/v1/stt:recognize?{params}"
     headers = {
-        'Authorization': f'Bearer {IAM_TOKEN}',
+        'Authorization': f'Bearer {iam_token}',
     }
     response = requests.post(url=url, headers=headers, data=data)
     decoded_data = response.json()
@@ -24,13 +24,13 @@ def text_to_speech(text: str):
 
     # Аутентификация через IAM-токен
     headers = {
-        'Authorization': f'Bearer {IAM_TOKEN}',
+        'Authorization': f'Bearer {iam_token}',
     }
     data = {
         'text': text,  # текст, который нужно преобразовать в голосовое сообщение
         'lang': 'ru-RU',  # язык текста - русский
         'voice': 'filipp',  # голос Филлипа
-        'folderId': FOLDER_ID,
+        'folderId': folder_id,
     }
     # Выполняем запрос
     response = requests.post('https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize', headers=headers, data=data)
